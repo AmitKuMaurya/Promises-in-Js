@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>McDonald’s franchise</title>
+    <style>
+        h1{
+           text-align: center;
+        }
+        #container{
+            display: flex;
+            flex-direction: column;
+            width: 20%;
+            text-align: center;
+            margin: auto;
+        }
+        #form{
+            margin-bottom: 20px;
+            padding: 10px 10px 10px 10px;
+        } 
+        button{
+            padding: 8px 8px 8px 8px;
+            
+        }
+        #container-2{
+           text-align: center;
+        }
+        #Order_ID{
+            float: right;
+            margin-right: 5%;
+        }
+      div>#ordered_img {
+        height: 30%;
+        width: 30%;
+      }
+    </style>
+  </head>
+  <body>
+      
+      
+      <!-- <form id="form" onsubmit="Submitit()"> -->
+          <h1>McDonald’s Restraunt</h1>
+          <div id="container">
+            <select id="form" >
+              <option selected = "true" disabled = "disabled">Select--an--food--item</option>
+              <option value="Veg Burger">Veg Burger</option>
+              <option value="Chicken burger">Chicken burger</option>
+              <option value="Salad Burger">Salad Burger</option>
+              <option value="French Fries">French Fries</option>
+            </select>
+            <button >Order Food</button>
+        </div>
+      <!-- <input type="button" value="Order Food" id="form" onclick="Submitit()" /> -->
+    <!-- </form> -->
+
+    <div id="container-2">
+        <!-- <h3 id="orderlist"></h3>
+        <h5 id="Order_ID"></h5>
+        <img id="ordered_img" /> -->
+    </div>
+  </body>
+</html>
+
+<script>
+
+    function Finalorder() {
+        return true;
+    }
+    
+    document.querySelector("#form").addEventListener("click",Submitit);
+    // let
+    let list = document.getElementById("orderlist");
+    let OrderID = document.getElementById("Order_ID");
+    let image = document.getElementById("ordered_img");
+    
+    function Submitit(){
+        event.preventDefault();
+        
+        let submited_order = document.getElementById("form").value;
+
+    let myPromise = new Promise(function (resolve, reject){
+        
+        let fo = Finalorder();
+        let time = Math.random() * 10000;
+        console.log(time);
+        if(fo===true){
+        setTimeout(function () {
+          resolve(submited_order);
+        }, time);
+      } 
+      else {
+        reject("Your order was not accepted");
+      }
+    });
+
+    // console.log("myPromise:",myPromise);
+    
+    myPromise.then(function (res){
+        let small = document.createElement("div");
+
+        let list = document.createElement("h3");
+        list.setAttribute("id","orderlist");
+
+        let image = document.createElement("img");
+        image.setAttribute("id","ordered_img");
+
+        let OrderID = document.createElement("h5");
+        OrderID.setAttribute("id","Order_ID");
+
+        small.append(list,OrderID,image);
+        document.querySelector("#container-2").append(small);
+      if(res==="Veg Burger"){
+        list.innerText = `Your ${res} is on your table.`;
+        image.src = "https://media-cldnry.s-nbcnews.com/image/upload/newscms/2019_21/2870431/190524-classic-american-cheeseburger-ew-207p.jpg";
+        OrderID.innerText = 'Order ID:'+"0001";
+      }
+      else if(res==="Chicken burger"){
+        list.innerText = `Your ${res} is on your table.`;
+        image.src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_VzcBGb_6FIG8exVOgJ1fvXL-wh3r8vPUXQ&usqp=CAU";
+        OrderID.innerText = 'Order ID:'+"0002";
+      } 
+      else if(res==="Salad Burger"){
+          list.innerText = `Your ${res} is on your table.`;
+          image.src = "https://hips.hearstapps.com/del.h-cdn.co/assets/17/30/1501263828-delish-iceburgers-2.jpg";
+          OrderID.innerText = 'Order ID:'+"0003";
+        }
+        else if(res==="French Fries"){
+            list.innerText = `Your ${res} is on your table.`;
+            image.src = "https://upload.wikimedia.org/wikipedia/commons/8/83/French_Fries.JPG";
+            OrderID.innerText = 'Order ID:'+"0004";
+        } 
+    });
+    myPromise.catch(function (err) {
+      console.log(`Your order was not accepted`);
+    });
+}
+</script>
